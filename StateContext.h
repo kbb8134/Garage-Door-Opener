@@ -12,14 +12,12 @@ class StateContext {
 
  public:
 
-    virtual void transition(char);
+    void transition(char);
+	StateContext(State);
 
-    virtual State getActiveState();
+    //State getActiveState();
 
     State ActiveState;
-    // Set<State> States;
-
-    // std::vector< State* > myState;
 
     GarageDoorOpener *myGarageDoorOpener;
 };

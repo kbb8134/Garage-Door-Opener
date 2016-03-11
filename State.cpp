@@ -1,5 +1,8 @@
 #include "State.h"
 
+State::State(GarageDoorOpener* door){
+	reciever = door;
+}
 
 void State::Entry()
 {
@@ -27,22 +30,16 @@ State State::tButton()
 	return(this->Button);
 }
 
-State State::tClosed()
+State State::tFinished()
 {
-	return(this->Closed);
+	return(this->Finished);
 }
 
-State State::tOpened()
-{
-	return(this->Opened);
-}
-
-void State::setTransitions(State OC, State I, State B, State OP, State C)
+void State::setTransitions(State OC, State I, State B, State F)
 {
 	this->Overcurrent = OC;
 	this->Beam = I;
 	this->Button = B;
-	this->Closed = C;
-	this->Opened = OP;
+	this->Finished = F;
 }
 

@@ -6,6 +6,8 @@ bool MUTEX = false;
 bool INTERRUPT = false;
 bool BUTTON = false;
 bool OVERCURRENT = false;
+//TRANSITIONED lets garagedooropener know if a state transition happened
+bool TRANSITIONED = false;
 enum STATE {CLOSED, CLOSING, OPENED, OPENING, AJAR};
 
 #endif

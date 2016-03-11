@@ -1,6 +1,10 @@
 #include "StateContext.h"
 
 
+StateContext::StateContext(State start){
+	ActiveState = start;
+}
+
 void StateContext::transition(char event)
 {
 	//Overcurrent
@@ -9,7 +13,7 @@ void StateContext::transition(char event)
 			this->ActiveState.Exit();
 			this->ActiveState = ActiveState.tOvercurrent();
 			this->ActiveState.Entry();
-
+			TRANSITIONED = TRUE;
 		}
 	}
 	//Beam Interrupt
@@ -18,6 +22,7 @@ void StateContext::transition(char event)
 			this->ActiveState.Exit();
 			this->ActiveState = ActiveState.tBeam();
 			this->ActiveState.Entry();
+			TRANSITIONED = TRUE;
 		}
 	}
 	//Button Press
@@ -26,27 +31,23 @@ void StateContext::transition(char event)
 			this->ActiveState.Exit();
 			this->ActiveState = ActiveState.tButton();
 			this->ActiveState.Entry();
+			TRANSITIONED = TRUE;
 		}
 	}
 	//Door closed
-	if(event == 'C'){
-		if(this->ActiveState.tClosed() != 0){
+	if(event == 'F'){
+		if(this->ActiveState.tFinished() != 0){
 			this->ActiveState.Exit();
-			this->ActiveState = ActiveState.tClosed();
+			this->ActiveState = ActiveState.tFinished();
 			this->ActiveState.Entry();
-		}
-	}
-	//Door Ajar
-	if(event == 'A'){
-		if(this->ActiveState.tOpened() != 0){
-			this->ActiveState.Exit();
-			this->ActiveState = ActiveState.tOpened();
-			this->ActiveState.Entry();
+			TRANSITIONED = TRUE;
 		}
 	}
 }
 
+/*
 State StateContext::getActiveState()
 {
 	return(this->ActiveState);
 }
+*/

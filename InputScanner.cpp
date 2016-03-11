@@ -44,7 +44,9 @@ void InputScanner::alertOvercurrent()
 {
 	if(MUTEX == false){
 		MUTEX = true;
-		OVERCURRENT = true;
+		if(OVERCURRENT != true && INTERRUPT != true && BUTTON != true;){
+			OVERCURRENT = true;
+		}
 		MUTEX = false;
 	}
 }
@@ -53,7 +55,9 @@ void InputScanner::alertbeam()
 {
 	if(MUTEX == false){
 		MUTEX = true;
-		INTERRUPT = true;
+		if(OVERCURRENT != true && INTERRUPT != true && BUTTON != true;){
+			INTERRUPT = true;
+		}
 		MUTEX = false;
 	}
 }
@@ -63,7 +67,9 @@ void InputScanner::alertbutton()
 {
 	if(MUTEX == false){
 		MUTEX = true;
-		BUTTON = true;
+		if(OVERCURRENT != true && INTERRUPT != true && BUTTON != true;){
+			BUTTON = true;
+		}
 		MUTEX = false;
 	}
 }

@@ -9,6 +9,11 @@ class State {
  public:
 
 	/*
+	 * States can change variables in the garagedooropener
+	 */
+	State(GarageDoorOpener*);
+	
+	/*
 	 * Entry actions on a state change
 	 */
     virtual void Entry();
@@ -23,24 +28,23 @@ class State {
      * Each state will know what state it should transistion in an event
      * If it does not tranistion during an event it returns NULL
      */
-    virtual State* tOvercurrent();
-    virtual State* tBeam();
-    virtual State* tButton();
-    virtual State* tClosed();
-    virtual State* tOpened();
+    State* tOvercurrent();
+    State* tBeam();
+    State* tButton();
+	//Finished represents the transition between the door moving and it completing a movement
+    State* tFinished();
 
-    void setTransitions(State, State, State, State, State);
+    void setTransitions(State, State, State, State);
 
 
  protected:
 
-    //GarageDoorOpener *reciever;
+    GarageDoorOpener *reciever;
     StateContext *myStateContext;
     State *Overcurrent;
     State *Beam;
     State *Button;
-    State *Closed;
-    State *Opened;
+    State *Finished;
 };
 
 #endif // State_h

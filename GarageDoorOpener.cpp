@@ -98,6 +98,7 @@ void* DoorThread(void* param)
 			}
 		}
 		count++;
+		nanospin_ns(1E9);
 	}
 	return 0;
 }

@@ -3,7 +3,7 @@
 
 // Input scanner thread
 // to be run at 1Hz
-void* InputThread(void* arg)
+void* InputScanner::InputScannerThread(void* arg)
 {
 	char userChoice = 'x';
 	// Start the scanning
@@ -30,11 +30,15 @@ void* InputThread(void* arg)
 				((InputScanner*)arg)->alertbutton(); // set the shared variable
 				break;
 
+			case 'e': // remote button press
+				std::cout << "\nExiting the InputScannerThread..." << std::endl << std::endl;
+				return;
+
 			default:
 				std::cout << "\nInvalid option. Try again" << std::endl << std::endl;
 		}
 
-	} while(tolower(userChoice) != 'x');
+	} while(true);
 
 	return 0;
 }

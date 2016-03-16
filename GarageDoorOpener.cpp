@@ -29,16 +29,13 @@ GarageDoorOpener::GarageDoorOpener()
 	SCState.setTransitions(0, 0, OpeningState, 0);
 	SOState.setTransitions(0, 0, ClosingState, 0);
 
-    //StateContext myStateContext(ClosedState);
+    InputScanner myInputScanner;
+    StateContext myStateContext(ClosedState);
 
 	// create the inputscanner thread
 	pthread_attr_t threadAttr;
 	pthread_attr_init(&threadAttr);		// initialize thread attributes structure
 	pthread_attr_setdetachstate(&threadAttr, PTHREAD_CREATE_JOINABLE);
-	pthread_create(&GDOThreadID, &threadAttr, &GarageDoorOpener::DoorThread, this);
-
-
-	// create the inputscanner thread
 	pthread_create(&inputScannerThreadID, &threadAttr, &InputScanner::InputScannerThread, &myInputScanner);
 
 }

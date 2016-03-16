@@ -32,7 +32,7 @@ void* InputScanner::InputScannerThread(void* arg)
 
 			case 'e': // remote button press
 				std::cout << "\nExiting the InputScannerThread..." << std::endl << std::endl;
-				return;
+				return 0;
 
 			default:
 				std::cout << "\nInvalid option. Try again" << std::endl << std::endl;
@@ -48,7 +48,7 @@ void InputScanner::alertOvercurrent()
 {
 	if(MUTEX == false){
 		MUTEX = true;
-		if(OVERCURRENT != true && INTERRUPT != true && BUTTON != true;){
+		if(OVERCURRENT != true && INTERRUPT != true && BUTTON != true){
 			OVERCURRENT = true;
 		}
 		MUTEX = false;
@@ -59,7 +59,7 @@ void InputScanner::alertbeam()
 {
 	if(MUTEX == false){
 		MUTEX = true;
-		if(OVERCURRENT != true && INTERRUPT != true && BUTTON != true;){
+		if(OVERCURRENT != true && INTERRUPT != true && BUTTON != true){
 			INTERRUPT = true;
 		}
 		MUTEX = false;
@@ -71,7 +71,7 @@ void InputScanner::alertbutton()
 {
 	if(MUTEX == false){
 		MUTEX = true;
-		if(OVERCURRENT != true && INTERRUPT != true && BUTTON != true;){
+		if(OVERCURRENT != true && INTERRUPT != true && BUTTON != true){
 			BUTTON = true;
 		}
 		MUTEX = false;

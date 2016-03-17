@@ -1,9 +1,9 @@
 #ifndef State_h
 #define State_h
-//#include "Globals.h"
+#include "Globals.h"
 #include <iostream>
 
-#include "GarageDoorOpener.h"
+//#include "GarageDoorOpener.h"
 //class GarageDoorOpener;
 
 class State {

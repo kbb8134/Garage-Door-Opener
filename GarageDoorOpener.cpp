@@ -1,6 +1,15 @@
 #include "GarageDoorOpener.h"
 
 
+bool TRANSITIONED = false;
+bool SETMOTORDOWN = false;
+bool SETMOTORUP = false;
+bool SETBEAM = false;
+bool MUTEX = false;
+bool INTERRUPT = false;
+bool BUTTON = false;
+bool OVERCURRENT = false;
+
 // GarageDoorOpener constructor
 GarageDoorOpener::GarageDoorOpener()
 {
@@ -10,7 +19,7 @@ GarageDoorOpener::GarageDoorOpener()
 	beamOn = false;
 	*/
 	count = 0;
-
+/*
 	TRANSITIONED = false;
 	MUTEX = false;
 	INTERRUPT = false;
@@ -20,7 +29,7 @@ GarageDoorOpener::GarageDoorOpener()
 	SETMOTORUP = false;
 	SETMOTORDOWN = false;
 	SETBEAM = false;
-
+*/
     // create state objects here
 	Closed ClosedState;
 	Closing ClosingState;
@@ -37,22 +46,22 @@ GarageDoorOpener::GarageDoorOpener()
 	SCState.setTransitions(0, 0, &OpeningState, 0);
 	SOState.setTransitions(0, 0, &ClosingState, 0);
 
-    myInputScanner = new InputScanner();
+ //   myInputScanner = new InputScanner();
     myStateContext = new StateContext(&ClosedState);
-
+/*
 	// create the inputscanner thread
 	pthread_attr_t threadAttr;
 	pthread_attr_init(&threadAttr);		// initialize thread attributes structure
 	pthread_attr_setdetachstate(&threadAttr, PTHREAD_CREATE_JOINABLE);
 	pthread_create(&inputScannerThreadID, &threadAttr, &InputScanner::InputScannerThread, this);
-
+*/
 }
 
 // GarageDoorOpener destructor
 GarageDoorOpener::~GarageDoorOpener()
 {
 	// input scanner will join when GDO object is no longer available
-	pthread_join(inputScannerThreadID, NULL);
+//	pthread_join(inputScannerThreadID, NULL);
 
 	// What else should go here?
 }
@@ -77,34 +86,34 @@ void* GarageDoorOpener::DoorThread(void* param)
 {
 	while(1){
 		//Printing the countdown if the door is moving
-		if(SETMOTORDOWN == true || SETMOTORUP == true){
+		if(::SETMOTORDOWN == true || ::SETMOTORUP == true){
 			std::cout << ((GarageDoorOpener*)param)->count << std::endl;
 		}
 		//Garage door has fully closed or opened
-		if(((GarageDoorOpener*)param)->count == 10 && (SETMOTORUP == true || SETMOTORDOWN == true)){
+		if(((GarageDoorOpener*)param)->count == 10 && (::SETMOTORUP == true || ::SETMOTORDOWN == true)){
 			((GarageDoorOpener*)param)->myStateContext->transition('F');
 			((GarageDoorOpener*)param)->count = 0;
 			continue;
 		}
 		//Looking for messages from inputscanner
-		if(MUTEX == false){
-			MUTEX = true;
-			if(OVERCURRENT == true){
+		if(::MUTEX == false){
+			::MUTEX = true;
+			if(::OVERCURRENT == true){
 				((GarageDoorOpener*)param)->myStateContext->transition('O');
 			}
-			if(BUTTON == true){
+			if(::BUTTON == true){
 				((GarageDoorOpener*)param)->myStateContext->transition('P');
 			}
-			if(INTERRUPT == true && SETBEAM == true){
+			if(::INTERRUPT == true && ::SETBEAM == true){
 				((GarageDoorOpener*)param)->myStateContext->transition('I');
 			}
 
-			MUTEX = false;
+			::MUTEX = false;
 
-			if(TRANSITIONED)
+			if(::TRANSITIONED)
 			{
 				((GarageDoorOpener*)param)->count = 0;
-				TRANSITIONED = false;
+				::TRANSITIONED = false;
 				continue;
 			}
 		}

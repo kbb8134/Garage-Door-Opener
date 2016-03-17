@@ -13,7 +13,7 @@ void StateContext::transition(char event)
 			((State*)ActiveState)->Exit();
 			ActiveState = (void*)((State*)ActiveState)->tOvercurrent();
 			((State*)ActiveState)->Entry();
-			TRANSITIONED = true;
+			::TRANSITIONED = true;
 		}
 	}
 	//Beam Interrupt
@@ -22,7 +22,7 @@ void StateContext::transition(char event)
 			((State*)ActiveState)->Exit();
 			ActiveState = (void*)((State*)ActiveState)->tBeam();
 			((State*)ActiveState)->Entry();
-			TRANSITIONED = true;
+			::TRANSITIONED = true;
 		}
 	}
 	//Button Press
@@ -31,7 +31,7 @@ void StateContext::transition(char event)
 			((State*)ActiveState)->Exit();
 			ActiveState = (void*)((State*)ActiveState)->tButton();
 			((State*)ActiveState)->Entry();
-			TRANSITIONED = true;
+			::TRANSITIONED = true;
 		}
 	}
 	//Door closed
@@ -40,7 +40,7 @@ void StateContext::transition(char event)
 			((State*)ActiveState)->Exit();
 			ActiveState = (void*)((State*)ActiveState)->tFinished();
 			((State*)ActiveState)->Entry();
-			TRANSITIONED = true;
+			::TRANSITIONED = true;
 		}
 	}
 }

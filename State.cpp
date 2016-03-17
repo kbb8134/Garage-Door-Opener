@@ -36,9 +36,9 @@ void State::setTransitions(State* OC, State* I, State* B, State* F)
 
 void Closed::Entry(){
 	std::cout << "Garage Door Closed. Beam off\n";
-	SETMOTORDOWN = false;
-	SETMOTORUP = false;
-	SETBEAM = false;
+	::SETMOTORDOWN = false;
+	::SETMOTORUP = false;
+	::SETBEAM = false;
 }
 void Closed::Exit(){
 
@@ -47,9 +47,9 @@ void Closed::Exit(){
 
 void Closing::Entry(){
 	std::cout << "Garage Door Closing, beam on" << std::endl;
-	SETMOTORDOWN = true;
-	SETMOTORUP = false;
-	SETBEAM = true;
+	::SETMOTORDOWN = true;
+	::SETMOTORUP = false;
+	::SETBEAM = true;
 }
 void Closing::Exit(){
 	std::cout << "Beam off" << std::endl;
@@ -59,9 +59,9 @@ void Closing::Exit(){
 
 void Open::Entry(){
 	std::cout << "Garage door opened" << std::endl;
-	SETMOTORDOWN = false;
-	SETMOTORUP = false;
-	SETBEAM = false;
+	::SETMOTORDOWN = false;
+	::SETMOTORUP = false;
+	::SETBEAM = false;
 }
 
 void Open::Exit(){
@@ -71,9 +71,9 @@ void Open::Exit(){
 
 void Opening::Entry(){
 	std::cout << "Garage Door Opening, beam on\n" << std::endl;
-	SETMOTORDOWN = false;
-	SETMOTORUP = true;
-	SETBEAM = false;
+	::SETMOTORDOWN = false;
+	::SETMOTORUP = true;
+	::SETBEAM = false;
 }
 
 void Opening::Exit(){
@@ -82,9 +82,9 @@ void Opening::Exit(){
 
 void StoppedClosing::Entry(){
 	std::cout << "Garage Door Stopped Closing\n" << std::endl;
-	SETMOTORDOWN = false;
-	SETMOTORUP = false;
-	SETBEAM = false;
+	::SETMOTORDOWN = false;
+	::SETMOTORUP = false;
+	::SETBEAM = false;
 	}
 
 void StoppedClosing::Exit(){
@@ -93,9 +93,9 @@ void StoppedClosing::Exit(){
 
 void StoppedOpening::Entry(){
 	std::cout << "Garage Door Stopped Opening, beam off\n" << std::endl;
-	SETMOTORDOWN = false;
-	SETMOTORUP = false;
-	SETBEAM = false;
+	::SETMOTORDOWN = false;
+	::SETMOTORUP = false;
+	::SETBEAM = false;
 	}
 void StoppedOpening::Exit(){
 

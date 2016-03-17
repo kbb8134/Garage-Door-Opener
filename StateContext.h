@@ -2,8 +2,8 @@
 #define StateContext_h
 
 #include "State.h"
-#include "GarageDoorOpener.h"
-
+//#include "GarageDoorOpener.h"
+//#include "Globals.h"
 //class GarageDoorOpener;
 
 class StateContext {

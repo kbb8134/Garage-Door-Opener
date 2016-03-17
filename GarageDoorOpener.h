@@ -18,18 +18,24 @@
 #include <sys/mman.h>     // for mmap_device_io()
 #include <inttypes.h>     // for ClockCycles() return value
 
-#include "Globals.h"
+//#include "Globals.h"
 #include "InputScanner.h"
 #include "StateContext.h"
-#include "Closed.h"
-#include "Closing.h"
-#include "Open.h"
-#include "Opening.h"
-#include "StoppedClosing.h"
-#include "StoppedOpening.h"
+#include "State.h"
 
 class InputScanner;
 class StateContext;
+
+extern bool TRANSITIONED;
+extern bool SETMOTORDOWN;
+extern bool SETMOTORUP;
+extern bool SETBEAM;
+extern bool MUTEX;
+extern bool INTERRUPT;
+extern bool BUTTON;
+extern bool OVERCURRENT;
+
+
 
 class GarageDoorOpener {
 
@@ -43,16 +49,16 @@ class GarageDoorOpener {
 
     GarageDoorOpener();		// constructor
     ~GarageDoorOpener();	// destructor
-    void setmotorDown(bool);
-    void setmotorUp(bool);
-    void setBeam(bool);
+ //   void setmotorDown(bool);
+//    void setmotorUp(bool);
+//    void setBeam(bool);
     void* DoorThread(void*);
     
  //private:
 	int count;
-    bool motorDown;
-    bool motorUp;
-    bool beamOn;
+ //   bool motorDown;
+ //   bool motorUp;
+ //   bool beamOn;
 };
 
 #endif // GarageDoorOpener_h

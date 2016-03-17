@@ -1,12 +1,25 @@
 #include "GarageDoorOpener.h"
 
+
 // GarageDoorOpener constructor
 GarageDoorOpener::GarageDoorOpener()
 {
+	/*
 	motorDown = false;
 	motorUp = false;
 	beamOn = false;
+	*/
 	count = 0;
+
+	TRANSITIONED = false;
+	MUTEX = false;
+	INTERRUPT = false;
+	BUTTON = false;
+	OVERCURRENT = false;
+
+	SETMOTORUP = false;
+	SETMOTORDOWN = false;
+	SETBEAM = false;
 
     // create state objects here
 	Closed ClosedState;
@@ -43,32 +56,32 @@ GarageDoorOpener::~GarageDoorOpener()
 
 	// What else should go here?
 }
-
-void GarageDoorOpener::setmotorDown(bool arg)
+/*
+void GarageDoorOpener::SETMOTORDOWN(bool arg)
 {
 	motorDown = arg;
 }
 
-void GarageDoorOpener::setmotorUp(bool arg)
+void GarageDoorOpener::SETMOTORDOWN(bool arg)
 {
 	motorUp = arg;
 }
 
-void GarageDoorOpener::setBeam(bool arg)
+void GarageDoorOpener::SETBEAM(bool arg)
 {
 	beamOn = arg;
 }
-
+*/
 // Thread to be called when Door is opening or closing
 void* GarageDoorOpener::DoorThread(void* param)
 {
 	while(1){
 		//Printing the countdown if the door is moving
-		if(((GarageDoorOpener*)param)->motorDown || ((GarageDoorOpener*)param)->motorUp){
+		if(SETMOTORDOWN == true || SETMOTORUP == true){
 			std::cout << ((GarageDoorOpener*)param)->count << std::endl;
 		}
 		//Garage door has fully closed or opened
-		if(((GarageDoorOpener*)param)->count == 10 && (((GarageDoorOpener*)param)->motorUp || ((GarageDoorOpener*)param)->motorDown)){
+		if(((GarageDoorOpener*)param)->count == 10 && (SETMOTORUP == true || SETMOTORDOWN == true)){
 			((GarageDoorOpener*)param)->myStateContext->transition('F');
 			((GarageDoorOpener*)param)->count = 0;
 			continue;
@@ -82,7 +95,7 @@ void* GarageDoorOpener::DoorThread(void* param)
 			if(BUTTON == true){
 				((GarageDoorOpener*)param)->myStateContext->transition('P');
 			}
-			if(INTERRUPT == true && ((GarageDoorOpener*)param)->beamOn){
+			if(INTERRUPT == true && SETBEAM == true){
 				((GarageDoorOpener*)param)->myStateContext->transition('I');
 			}
 

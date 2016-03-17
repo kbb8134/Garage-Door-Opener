@@ -2,15 +2,16 @@
 #define StateContext_h
 
 #include "State.h"
+#include "GarageDoorOpener.h"
 
-class GarageDoorOpener;
+//class GarageDoorOpener;
 
 class StateContext {
 
  public:
 	// Attributes
     void* ActiveState;
-    GarageDoorOpener* myGarageDoorOpener;
+    //GarageDoorOpener* myGarageDoorOpener;
 
     // Methods
     StateContext(void*);

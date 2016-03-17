@@ -1,4 +1,4 @@
-#include "GarageDoorOpener.h"
+#include "InputScanner.h"
 
 
 // Input scanner thread

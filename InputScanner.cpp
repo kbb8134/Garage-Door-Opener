@@ -26,7 +26,7 @@ void* InputScanner::InputScannerThread(void* arg)
 				break;
 
 			case 'r': // remote button press
-				nanospin_ns(1E9); // simulate a 1 second press
+				sleep(1); // simulate a 1 second press
 				((InputScanner*)arg)->alertbutton(); // set the shared variable
 				break;
 

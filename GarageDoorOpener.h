@@ -18,6 +18,7 @@
 #include <sys/mman.h>     // for mmap_device_io()
 #include <inttypes.h>     // for ClockCycles() return value
 
+#include "Globals.h"
 #include "InputScanner.h"
 #include "StateContext.h"
 #include "Closed.h"
@@ -26,7 +27,9 @@
 #include "Opening.h"
 #include "StoppedClosing.h"
 #include "StoppedOpening.h"
-#include "Globals.h"
+
+class InputScanner;
+class StateContext;
 
 class GarageDoorOpener {
 
@@ -35,10 +38,11 @@ class GarageDoorOpener {
 	static char event;
 	pthread_t GDOThreadID;
 	pthread_t inputScannerThreadID;
+	InputScanner* myInputScanner;
+    StateContext* myStateContext;
 
-    // constructor
-    GarageDoorOpener();    // destructor
-    ~GarageDoorOpener();
+    GarageDoorOpener();		// constructor
+    ~GarageDoorOpener();	// destructor
     void setmotorDown(bool);
     void setmotorUp(bool);
     void setBeam(bool);

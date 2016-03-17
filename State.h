@@ -1,50 +1,35 @@
 #ifndef State_h
 #define State_h
-#include <iostream>
+#include "GarageDoorOpener.h"
 
-class StateContext;
+class GarageDoorOpener;
 
 class State {
 
  public:
 
-	/*
-	 * States can change variables in the garagedooropener
-	 */
-	State(GarageDoorOpener*);
+	//State(GarageDoorOpener*);
 	
-	/*
-	 * Entry actions on a state change
-	 */
     virtual void Entry();
-
-    /*
-     * Exit actions on a state change
-     */
     virtual void Exit();
 
-    /*
-     * The following five functions represent transitions
-     * Each state will know what state it should transistion in an event
-     * If it does not tranistion during an event it returns NULL
-     */
+    // The following five functions represent transitions
+    // Each state will know what state it should transistion in an event
+    // If it does not tranistion during an event it returns NULL
+
     State* tOvercurrent();
     State* tBeam();
     State* tButton();
-	//Finished represents the transition between the door moving and it completing a movement
+	// Finished represents the transition between the door moving and it completing a movement
     State* tFinished();
+    void setTransitions(State*, State*, State*, State*);
 
-    void setTransitions(State, State, State, State);
-
-
- protected:
-
+ //protected:
     GarageDoorOpener *reciever;
-    StateContext *myStateContext;
-    State *Overcurrent;
-    State *Beam;
-    State *Button;
-    State *Finished;
+    State* Overcurrent;
+    State* Beam;
+    State* Button;
+    State* Finished;
 };
 
 #endif // State_h

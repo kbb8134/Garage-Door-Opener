@@ -1,42 +1,37 @@
 #include "GarageDoorOpener.h"
-#include <stdio.h>
 
 // GarageDoorOpener constructor
 GarageDoorOpener::GarageDoorOpener()
 {
-	receivedInput = 'x'; // Initialized to default
-	event = 'x';
-
 	motorDown = false;
 	motorUp = false;
 	beamOn = false;
 	count = 0;
-	
 
     // create state objects here
-	Closed ClosedState(this);
-	Closing ClosingState(this);
-	Open OpenState(this);
-	Opening OpeningState(this);
-	StoppedClosing SCState(this);
-	StoppedOpening SOState(this);
+	Closed ClosedState;
+	Closing ClosingState;
+	Open OpenState;
+	Opening OpeningState;
+	StoppedClosing SCState;
+	StoppedOpening SOState;
 	
 	//Overcurrent, interrupt, button, finished
-	ClosedState.setTransitions(0, 0 , OpeningState, 0);
-	ClosingState.setTransitions(OpeningState, OpeningState, SCState, ClosedState);
-	OpenState.setTransitions(0, 0, ClosingState, 0);
-	OpeningState.setTransitions(SOState, 0, SOState, OpenState);
-	SCState.setTransitions(0, 0, OpeningState, 0);
-	SOState.setTransitions(0, 0, ClosingState, 0);
+	ClosedState.setTransitions(0, 0 , &OpeningState, 0);
+	ClosingState.setTransitions(&OpeningState, &OpeningState, &SCState, &ClosedState);
+	OpenState.setTransitions(0, 0, &ClosingState, 0);
+	OpeningState.setTransitions(&SOState, 0, &SOState, &OpenState);
+	SCState.setTransitions(0, 0, &OpeningState, 0);
+	SOState.setTransitions(0, 0, &ClosingState, 0);
 
-    InputScanner myInputScanner;
-    StateContext myStateContext(ClosedState);
+    myInputScanner = new InputScanner();
+    myStateContext = new StateContext(&ClosedState);
 
 	// create the inputscanner thread
 	pthread_attr_t threadAttr;
 	pthread_attr_init(&threadAttr);		// initialize thread attributes structure
 	pthread_attr_setdetachstate(&threadAttr, PTHREAD_CREATE_JOINABLE);
-	pthread_create(&inputScannerThreadID, &threadAttr, &InputScanner::InputScannerThread, &myInputScanner);
+	pthread_create(&inputScannerThreadID, &threadAttr, &InputScanner::InputScannerThread, this);
 
 }
 
@@ -70,11 +65,11 @@ void* GarageDoorOpener::DoorThread(void* param)
 	while(1){
 		//Printing the countdown if the door is moving
 		if(((GarageDoorOpener*)param)->motorDown || ((GarageDoorOpener*)param)->motorUp){
-			printf("%d\n", ((GarageDoorOpener*)param)->count);
+			std::cout << ((GarageDoorOpener*)param)->count << std::endl;
 		}
 		//Garage door has fully closed or opened
 		if(((GarageDoorOpener*)param)->count == 10 && (((GarageDoorOpener*)param)->motorUp || ((GarageDoorOpener*)param)->motorDown)){
-			((GarageDoorOpener*)param)->myStateContext.transition('F');
+			((GarageDoorOpener*)param)->myStateContext->transition('F');
 			((GarageDoorOpener*)param)->count = 0;
 			continue;
 		}
@@ -82,23 +77,27 @@ void* GarageDoorOpener::DoorThread(void* param)
 		if(MUTEX == false){
 			MUTEX = true;
 			if(OVERCURRENT == true){
-				((GarageDoorOpener*)param)->myStateContext.transition('O');
+				((GarageDoorOpener*)param)->myStateContext->transition('O');
 			}
 			if(BUTTON == true){
-				((GarageDoorOpener*)param)->myStateContext.transition('P');
+				((GarageDoorOpener*)param)->myStateContext->transition('P');
 			}
 			if(INTERRUPT == true && ((GarageDoorOpener*)param)->beamOn){
-				((GarageDoorOpener*)param)->myStateContext.transition('I');
+				((GarageDoorOpener*)param)->myStateContext->transition('I');
 			}
+
 			MUTEX = false;
-			if(TRANSITIONED){
+
+			if(TRANSITIONED)
+			{
 				((GarageDoorOpener*)param)->count = 0;
 				TRANSITIONED = false;
 				continue;
 			}
 		}
+
 		((GarageDoorOpener*)param)->count++;
-		nanospin_ns(1E9);
+		sleep(1);
 	}
 	return 0;
 }

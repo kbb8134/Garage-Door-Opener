@@ -3,7 +3,6 @@
 
 #include "State.h"
 
-
 class Closed : public State {
 
 };

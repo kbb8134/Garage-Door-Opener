@@ -4,6 +4,8 @@
 #include "State.h"
 
 
-class Closing : public State {};
+class Closing : public State {
+
+};
 
 #endif // Closing_h

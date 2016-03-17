@@ -1,5 +1,3 @@
-#include <cstdlib>
-#include <iostream>
 #include "GarageDoorOpener.h"
 
 int main(int argc, char *argv[]) {

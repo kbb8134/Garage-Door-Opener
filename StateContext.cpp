@@ -1,46 +1,46 @@
 #include "StateContext.h"
 
 
-StateContext::StateContext(State start){
-	ActiveState = start;
+StateContext::StateContext(void* start){
+	ActiveState = (State*)start;
 }
 
 void StateContext::transition(char event)
 {
 	//Overcurrent
 	if(event == 'O'){
-		if(this->ActiveState.tOvercurrent() != 0){
-			this->ActiveState.Exit();
-			this->ActiveState = ActiveState.tOvercurrent();
-			this->ActiveState.Entry();
-			TRANSITIONED = TRUE;
+		if(((State*)ActiveState)->tOvercurrent() != 0){
+			((State*)ActiveState)->Exit();
+			ActiveState = (void*)((State*)ActiveState)->tOvercurrent();
+			((State*)ActiveState)->Entry();
+			TRANSITIONED = true;
 		}
 	}
 	//Beam Interrupt
 	if(event == 'I'){
-		if(this->ActiveState.tBeam() != 0){
-			this->ActiveState.Exit();
-			this->ActiveState = ActiveState.tBeam();
-			this->ActiveState.Entry();
-			TRANSITIONED = TRUE;
+		if(((State*)ActiveState)->tBeam() != 0){
+			((State*)ActiveState)->Exit();
+			ActiveState = (void*)((State*)ActiveState)->tBeam();
+			((State*)ActiveState)->Entry();
+			TRANSITIONED = true;
 		}
 	}
 	//Button Press
 	if(event == 'P'){
-		if(this->ActiveState.tButton() != 0){
-			this->ActiveState.Exit();
-			this->ActiveState = ActiveState.tButton();
-			this->ActiveState.Entry();
-			TRANSITIONED = TRUE;
+		if(((State*)ActiveState)->tButton() != 0){
+			((State*)ActiveState)->Exit();
+			ActiveState = (void*)((State*)ActiveState)->tButton();
+			((State*)ActiveState)->Entry();
+			TRANSITIONED = true;
 		}
 	}
 	//Door closed
 	if(event == 'F'){
-		if(this->ActiveState.tFinished() != 0){
-			this->ActiveState.Exit();
-			this->ActiveState = ActiveState.tFinished();
-			this->ActiveState.Entry();
-			TRANSITIONED = TRUE;
+		if(((State*)ActiveState)->tFinished() != 0){
+			((State*)ActiveState)->Exit();
+			ActiveState = (void*)((State*)ActiveState)->tFinished();
+			((State*)ActiveState)->Entry();
+			TRANSITIONED = true;
 		}
 	}
 }

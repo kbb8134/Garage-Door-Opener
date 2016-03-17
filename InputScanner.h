@@ -1,9 +1,6 @@
 #ifndef InputScanner_h
 #define InputScanner_h
 
-//#include "GarageDoorOpener.h"
-
-
 class InputScanner
 {
 

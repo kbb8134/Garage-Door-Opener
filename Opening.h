@@ -5,6 +5,9 @@
 
 
 class Opening : public State {
+public:
+	void Entry();
+	void Exit();
 
 };
 

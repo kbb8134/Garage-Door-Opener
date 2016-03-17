@@ -4,6 +4,11 @@
 #include "State.h"
 
 
-class StoppedOpening : public State {};
+class StoppedOpening : public State {
+
+public:
+	void Entry();
+	void Exit(){};
+};
 
 #endif // StoppedOpening_h

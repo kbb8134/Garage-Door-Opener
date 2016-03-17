@@ -1,12 +1,12 @@
 #include "Opening.h"
 
-void State::Entry(){
+void Opening::Entry(){
 	std::cout << "Garage Door Opening, beam on\n" << std::endl;
 	reciever->setmotorDown(false);
 	reciever->setmotorUp(true);
 	reciever->setBeam(false);
 }
 
-void State::Exit(){
+void Opening::Exit(){
 	std::cout << "Beam off\n" << std::endl;
 }

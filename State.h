@@ -10,8 +10,8 @@ class State {
 
 	//State(GarageDoorOpener*);
 	
-    virtual void Entry();
-    virtual void Exit();
+    virtual void Entry()=0;
+    virtual void Exit()=0;
 
     // The following five functions represent transitions
     // Each state will know what state it should transistion in an event
@@ -32,4 +32,5 @@ class State {
     State* Finished;
 };
 
+class xxx : public State{};
 #endif // State_h

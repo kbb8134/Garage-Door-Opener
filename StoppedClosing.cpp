@@ -1,6 +1,6 @@
 #include "StoppedClosing.h"
 
-void State::Entry(){
+void StoppedClosing::Entry(){
 	std::cout << "Garage Door Closing\n" << std::endl;
 	reciever->setmotorDown(false);
 	reciever->setmotorUp(false);

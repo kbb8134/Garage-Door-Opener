@@ -5,6 +5,9 @@
 
 
 class Closing : public State {
+public:
+	void Entry();
+	void Exit();
 
 };
 

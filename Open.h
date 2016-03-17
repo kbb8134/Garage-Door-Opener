@@ -4,8 +4,10 @@
 #include "State.h"
 
 
-class Open : public State
-{
+class Open : public State {
+public:
+	void Entry();
+	void Exit(){};
 
 };
 

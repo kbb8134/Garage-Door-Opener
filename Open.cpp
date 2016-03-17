@@ -1,7 +1,7 @@
 #include "Open.h"
 
 
-void State::Entry()
+void Open::Entry()
 {
 	std::cout << "Garage door opened" << std::endl;
 	reciever->setmotorDown(false);
